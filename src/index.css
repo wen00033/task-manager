@@ -1,0 +1,96 @@
+:root {
+  --primary: #2d3250;
+  --secondary: white;
+  --tertiary: #424769;
+  --quaternary: #7077a1;
+  /* ----------- */
+  --header: var(--primary);
+  --mode: var(--quaternary);
+  --task-header: var(--secondary);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+ul,
+ol {
+  list-style-type: none;
+  display: grid;
+  gap: 1rem;
+}
+
+h1 {
+  font-weight: 900;
+}
+
+.dark {
+  --task-header: var(--tertiary);
+  --header: var(--secondary);
+  background-color: var(--primary);
+  color: var(--secondary);
+  --mode: var(--tertiary);
+}
+
+.wrapper {
+  position: relative;
+  margin: auto;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+}
+
+.main-task-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 300px;
+  border-right: 2px solid var(black, 0.9);
+  box-shadow: 2px 1px 5px 6px black;
+}
+.container {
+  z-index: 2;
+  padding: 2rem;
+}
+
+.toggle {
+  display: flex;
+  padding: 1rem;
+  background-color: var(--mode);
+  border-radius: 2rem;
+  justify-content: space-between;
+}
+
+.main-task {
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 1rem;
+}
+.task-container {
+  margin-top: 2rem;
+}
+
+.task-icon {
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+.task-icon:hover {
+  transform: scale(1.2);
+  color: #d4ff00;
+}
+
+.tasks-container {
+  display: flex;
+  flex-direction: column;
+}
