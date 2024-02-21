@@ -1,13 +1,10 @@
+import AddTask from "../../Components/AddTask";
 import { useState, useEffect } from "react";
-// import { collection, getDocs } from "firebase/firestore/lite";
-// import db from "../../utils/data";
 import "./platform.css";
 import TaskCat from "../../Components/TaskCat";
-// get data from firebase
 function Platform() {
   const [tasks, setTasks] = useState({} as any);
   const [cate, setCate] = useState([] as any);
-  //reorder content to array
   useEffect(() => {
     async function fetchData() {
       try {
@@ -26,10 +23,7 @@ function Platform() {
 
   return (
     <section className="platform ">
-      <header>
-        <h2 className="platform-title">tasks launch</h2>
-        <button>Add task</button>
-      </header>
+      <AddTask />
       <div className="platform-wrapper">
         {/* fetch function render empty object, use ternary to skip the empty object */}
         {tasks.length > 0

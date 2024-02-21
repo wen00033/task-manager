@@ -1,24 +1,13 @@
-import { useState, useEffect } from "react";
-import { useThemeToggle, useTheme } from "./Theme";
+import { useThemeToggle, useTheme, useGetTasksId } from "./Theme";
 import { Sun, Moon, Star } from "lucide-react";
 import Toggle from "react-toggle";
 import "react-toggle/style.css";
 
 function Header() {
-  const [tasks, setTasks] = useState<[] | string>([]);
   const lightMode = useTheme();
   const toggle = useThemeToggle();
-
-  useEffect(() => {
-    async function getTasks() {
-      const res = await fetch(
-        "http://localhost:8888/.netlify/functions/getTasksManager"
-      );
-      const data = await res.json();
-      setTasks(data);
-    }
-    getTasks();
-  }, []);
+  const tasks = useGetTasksId();
+  // severless function output Doc id and Doc title
 
   return (
     <header className="container main-task-container">
