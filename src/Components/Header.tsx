@@ -11,7 +11,9 @@ function Header() {
 
   useEffect(() => {
     async function getTasks() {
-      const res = await fetch("http://localhost:8888/.netlify/functions/Hello");
+      const res = await fetch(
+        "http://localhost:8888/.netlify/functions/getTasksManager"
+      );
       const data = await res.json();
       setTasks(data);
     }

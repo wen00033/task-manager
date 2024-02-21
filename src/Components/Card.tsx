@@ -3,9 +3,11 @@ import Checkbox from "rc-checkbox";
 import "./card.css";
 function Card({ data, cate }: any & { title: string; task: [] }) {
   const [taskWindow, setTaskWindow] = useState(false);
+  const [check, setCheck] = useState();
   const taskWindowHandler = function () {
     setTaskWindow(!taskWindow);
   };
+  console.log();
 
   // console.log(data.task[0].subtask);
   return (
@@ -29,8 +31,10 @@ function Card({ data, cate }: any & { title: string; task: [] }) {
             <ul className="subtask-container">
               {data.task[0].subtask.map((task: any, index: number) => (
                 <li className="subtask" key={index}>
-                  <Checkbox checked={true} />
-                  <h4>{task}</h4>
+                  <Checkbox checked={check} />
+                  <h4>
+                    <del>{task}</del>
+                  </h4>
                 </li>
               ))}
             </ul>
