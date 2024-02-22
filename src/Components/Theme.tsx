@@ -31,21 +31,21 @@ export function useThemeToggle() {
 type content = {
   children: React.ReactNode;
 };
-
 function Theme({ children }: content) {
   const [tasks, setTasks] = useState<[] | string>([]);
   const [theme, setTheme] = useState(true);
   const toggle = function () {
     setTheme(!theme);
   };
+  async function getTasks() {
+    const res = await fetch(
+      "http://localhost:8888/.netlify/functions/getTasksManager"
+    );
+    const data = await res.json();
+    setTasks(data);
+  }
+
   useEffect(() => {
-    async function getTasks() {
-      const res = await fetch(
-        "http://localhost:8888/.netlify/functions/getTasksManager"
-      );
-      const data = await res.json();
-      setTasks(data);
-    }
     getTasks();
   }, []);
 
