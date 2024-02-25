@@ -1,12 +1,23 @@
 import AddTask from "../../Components/AddTask";
 import { useState, useEffect } from "react";
 import "./platform.css";
-import TaskCat from "../../Components/TaskCat";
-const check = JSON.parse(localStorage.getItem("docID") || "");
+// import TaskCat from "../../Components/TaskCat";
+
+const check = localStorage.getItem("docID") || "";
 console.log(check);
 function Platform() {
   const [tasks, setTasks] = useState({} as any);
-  const [cate, setCate] = useState([] as any);
+  const [id, setId] = useState("");
+  // const [cate, setCate] = useState([] as any);
+
+  useEffect(() => {
+    function watchId() {
+      const id = JSON.parse(localStorage.getItem("docID") || "");
+      console.log(id);
+    }
+    watchId();
+  }, [check]);
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -14,7 +25,6 @@ function Platform() {
           "http://localhost:8888/.netlify/functions/getTask",
           {
             method: "POST",
-            // headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ docID: check }),
           }
         );
@@ -32,11 +42,11 @@ function Platform() {
       <AddTask />
       <div className="platform-wrapper">
         {/* fetch function render empty object, use ternary to skip the empty object */}
-        {tasks.length > 0
+        {/* {tasks.length > 0
           ? tasks.map((task: [], index: number) => (
               <TaskCat cate={cate} data={task} key={index} />
             ))
-          : "loading"}
+          : "loading"} */}
       </div>
     </section>
   );

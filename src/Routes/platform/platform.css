@@ -46,3 +46,14 @@
 .platform-button:hover {
   transform: scale(1.05);
 }
+
+.popup-background {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.418);
+  position: fixed;
+  content: "";
+  left: 0;
+  top: 0;
+  z-index: 2;
+}

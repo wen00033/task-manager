@@ -35,7 +35,7 @@ function AddTask() {
       taskList: arrayUnion(task),
     });
     setSubtaskArray([]);
-    setPopup(false);
+    setPopup(!popup);
   }
 
   function addSubtaskHandler(e: any) {

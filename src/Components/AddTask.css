@@ -44,3 +44,13 @@
   transform: scale(1.2);
   color: red;
 }
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  background-color: var(--tertiary);
+  padding: 2rem;
+  border-radius: 1rem;
+}
