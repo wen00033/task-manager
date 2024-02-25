@@ -2,6 +2,8 @@ import AddTask from "../../Components/AddTask";
 import { useState, useEffect } from "react";
 import "./platform.css";
 import TaskCat from "../../Components/TaskCat";
+const check = JSON.parse(localStorage.getItem("docID") || "");
+console.log(check);
 function Platform() {
   const [tasks, setTasks] = useState({} as any);
   const [cate, setCate] = useState([] as any);
@@ -9,18 +11,22 @@ function Platform() {
     async function fetchData() {
       try {
         const res = await fetch(
-          "http://localhost:8888/.netlify/functions/getTask"
+          "http://localhost:8888/.netlify/functions/getTask",
+          {
+            method: "POST",
+            // headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ docID: check }),
+          }
         );
         const data = await res.json();
-        setTasks(Object.entries(data));
-        setCate(Object.keys(data));
+        setTasks(data);
       } catch (e) {
         return;
       }
     }
     fetchData();
   }, []);
-
+  console.log(tasks);
   return (
     <section className="platform ">
       <AddTask />

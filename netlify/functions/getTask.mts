@@ -1,16 +1,17 @@
 import type { Handler } from "@netlify/functions";
-import { collection, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import db from "../../src/utils/data";
+
 export const handler: Handler = async (event, context) => {
+  const { docID } = JSON.parse(event.body);
+  console.log(docID);
   let data;
-  const querySnapShot = await getDocs(collection(db, "Task-Manager"));
-  querySnapShot.forEach((doc) => {
-    data = doc.data();
-    delete data.title;
-  });
+  const docRef = doc(db, "Task-Manager", docID);
+  const docSnap = await getDoc(docRef);
+  data = docSnap.data();
   // activated the function for header get the ID and title of the task
   return {
-    body: JSON.stringify(data),
+    body: JSON.stringify(data.taskList),
     statusCode: 200,
   };
 };
