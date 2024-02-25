@@ -1,27 +1,46 @@
-.platform-header {
-  background-color: var(--task-header);
-  padding: 2rem;
-  border-bottom: 2px solid black;
-  box-shadow: 4px 5px 6px 0px black;
+.add-task-popup {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  gap: 0.2rem;
+  flex-direction: column;
 }
-
-.platform-button {
-  text-transform: uppercase;
-  transition: all 0.1s ease-out;
-  padding: 1rem;
-  font-size: 1rem;
-  font-weight: bold;
-  background-color: var(--task-header);
-  box-shadow: 1px 1px 5px 0px black;
-  border-radius: 0.5rem;
+.add-task-popup input,
+.add-task-popup button {
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+.add-task-popup button {
   cursor: pointer;
-  color: var(--secondary);
+  transition: all 0.1s ease-out;
+  border-radius: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.add-task-popup button:hover {
+  transform: scale(1.05);
+  box-shadow: 1px 1px 5px 0px black;
+}
+.add-task-popup span,
+.add-task-popup h2 {
+  text-transform: uppercase;
+  font-weight: bolder;
 }
 
-.platform-button:hover {
-  transform: scale(1.05);
+.add-status-button {
+  padding: 0.5rem;
+  margin-left: 5px;
+}
+
+.subtask {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.subtask-delete-button {
+  transition: all 0.1s ease-out;
+  cursor: pointer;
+}
+.subtask-delete-button:hover {
+  transform: scale(1.2);
+  color: red;
 }

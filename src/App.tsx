@@ -1,6 +1,7 @@
 import Header from "./Components/Header";
 import { useTheme } from "./Components/Theme";
 import { Outlet } from "react-router";
+
 function App() {
   const lightMode = useTheme();
 

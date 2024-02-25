@@ -31,6 +31,11 @@ h1 {
   font-weight: 900;
 }
 
+input {
+  padding: 0.3rem;
+  border-radius: 0.5rem;
+}
+
 .dark {
   --task-header: var(--tertiary);
   --header: var(--secondary);
@@ -44,18 +49,8 @@ h1 {
   margin: auto;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: 400px 1fr;
 }
 
-.main-task-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-width: 300px;
-  border-right: 2px solid var(black, 0.9);
-  box-shadow: 2px 1px 5px 6px black;
-}
 .container {
   z-index: 2;
   padding: 2rem;
@@ -70,12 +65,12 @@ h1 {
 }
 
 .main-task {
+  padding-inline: 1rem;
   letter-spacing: 1.2px;
   text-transform: uppercase;
   display: flex;
-  justify-content: left;
+  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
 }
 .task-container {
   margin-top: 2rem;
@@ -90,7 +85,27 @@ h1 {
   color: #d4ff00;
 }
 
+.task-delete {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  opacity: 0.2;
+}
+.task-delete:hover {
+  scale: 2;
+  opacity: 1;
+}
+
 .tasks-container {
   display: flex;
   flex-direction: column;
+}
+.active {
+  color: orange;
+}
+
+@media only screen and (min-width: 800px) {
+  .wrapper {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+  }
 }
