@@ -8,10 +8,16 @@ export const handler: Handler = async (event, context) => {
   let data;
   const docRef = doc(db, "Task-Manager", docID);
   const docSnap = await getDoc(docRef);
-  data = docSnap.data();
+  data = {
+    todo: docSnap.data().taskList.filter((task: any) => task.status === "todo"),
+    doing: docSnap
+      .data()
+      .taskList.filter((task: any) => task.status === "doing"),
+    done: docSnap.data().taskList.filter((task: any) => task.status === "done"),
+  };
   // activated the function for header get the ID and title of the task
   return {
-    body: JSON.stringify(data.taskList),
+    body: JSON.stringify(data),
     statusCode: 200,
   };
 };

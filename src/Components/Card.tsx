@@ -1,45 +1,78 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Checkbox from "rc-checkbox";
+import { doc, updateDoc, getDoc } from "firebase/firestore";
+import db from "../utils/data";
+
+const ID = JSON.parse(localStorage.getItem("docID") || "");
+
 import "./card.css";
-function Card({ data, cate }: any & { title: string; task: [] }) {
+function Card({ data }: any & { title: string; task: [] }) {
   const [taskWindow, setTaskWindow] = useState(false);
-  const [check, setCheck] = useState();
+  const [updateData, setUpdateData] = useState({} as any);
+  const [subtask, setSubtask] = useState(data.subtask);
+  const status = ["todo", "doing", "done"];
+  // const [check, setCheck] = useState(false);
   const taskWindowHandler = function () {
     setTaskWindow(!taskWindow);
   };
-  console.log();
 
-  // console.log(data.task[0].subtask);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const docRef = doc(db, "Task-Manager", ID);
+  //     const docSnap = await getDoc(docRef);
+  //     let data = docSnap.data();
+  //     // data from firestore
+  //     setUpdateData(data.taskList);
+  //   }
+  //   fetchData();
+  // }, []);
+
+  // useEffect(() => {
+  //   async function updateData() {
+  //     const docRef = doc(db, "Task-Manager", ID);
+  //     await updateDoc(docRef, {
+  //       taskList: updateData,
+  //     });
+  //   }
+  // }, []);
+
+  function updateNewData(e: any) {
+    setUpdateData({
+      ...updateData,
+      status: e.target.value,
+      subtask: data.subtask,
+    });
+  }
+
   return (
     <>
       <div onClick={taskWindowHandler} className="card">
         <h2>{data.title}</h2>
-        <p>{` ${data.task[0].subtask.length} subtasks`}</p>
+        <p>{` ${data.subtask.length} subtasks`}</p>
       </div>
       {taskWindow && (
         <>
           <div onClick={taskWindowHandler} className="popup-background"></div>
           <div className="popup">
-            <h3>The quest title</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Et
-              quibusdam iusto officia dolorem. Quidem, velit ipsa blanditiis
-              natus, quos repellat officiis amet perspiciatis aut temporibus
-              aspernatur facilis minima! Nostrum, voluptates!
-            </p>
+            <h3>{data.title.toUpperCase()}</h3>
+            <p>{data.description}</p>
             <h3>subtasks</h3>
             <ul className="subtask-container">
-              {data.task[0].subtask.map((task: any, index: number) => (
+              {subtask.map((task: any, index: number) => (
                 <li className="subtask" key={index}>
-                  <Checkbox checked={check} />
-                  <h4>
-                    <del>{task}</del>
-                  </h4>
+                  <Checkbox data-store={task.subtask} />
+                  {task.status ? (
+                    <del>
+                      <h4>{task.subtask}</h4>
+                    </del>
+                  ) : (
+                    <h4>{task.subtask}</h4>
+                  )}
                 </li>
               ))}
             </ul>
-            <select name="list">
-              {cate.map((task: any, index: number) => (
+            <select name="list" onChange={updateNewData}>
+              {status.map((task: any, index: number) => (
                 <option key={index} value={task}>
                   {task}
                 </option>

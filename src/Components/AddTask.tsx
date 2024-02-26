@@ -34,6 +34,7 @@ function AddTask() {
     await updateDoc(docRef, {
       taskList: arrayUnion(task),
     });
+    console.log(check);
     setSubtaskArray([]);
     setPopup(!popup);
   }
