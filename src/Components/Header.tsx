@@ -18,7 +18,6 @@ import {
 } from "lucide-react";
 
 function Header() {
-  const [Id, setId] = useState("");
   const [fold, setFold] = useState(false);
   const [docID, setDocID] = useLocalStorage("docID", "0"); // [1
   const [submit, setSubmit] = useState(false);
