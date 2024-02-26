@@ -2,7 +2,7 @@ import type { Handler } from "@netlify/functions";
 import { doc, getDoc } from "firebase/firestore";
 import db from "../../src/utils/data";
 
-export const handler: Handler = async (event, context) => {
+export const handler: Handler = async (event: any, context) => {
   const { docID } = JSON.parse(event.body);
   const docRef = doc(db, "Task-Manager", docID);
   const docSnap = await getDoc(docRef);
