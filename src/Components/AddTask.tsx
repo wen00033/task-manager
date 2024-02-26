@@ -3,14 +3,15 @@ import { X } from "lucide-react";
 import db from "../utils/data";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { useState } from "react";
+import { useReadLocalStorage } from "usehooks-ts";
 
-function AddTask() {
+function AddTask({ refetch }: any & { refetch: () => void }) {
   const [popup, setPopup] = useState(false);
   const status = ["select your status", "todo", "doing", "done"];
   const [task, setTask] = useState({} as any);
   const [subtaskArray, setSubtaskArray] = useState([] as any);
   const [subtask, setSubtask] = useState("");
-  const check = JSON.parse(localStorage.getItem("docID") || "");
+  const ID = useReadLocalStorage("docID");
   const taskWindowHandler = function () {
     setPopup(!popup);
   };
@@ -30,13 +31,13 @@ function AddTask() {
       alert("select your status");
     }
     e.preventDefault();
-    const docRef = doc(db, "Task-Manager", check);
+    const docRef = doc(db, "Task-Manager", `${ID}`);
     await updateDoc(docRef, {
       taskList: arrayUnion(task),
     });
-    console.log(check);
     setSubtaskArray([]);
     setPopup(!popup);
+    refetch();
   }
 
   function addSubtaskHandler(e: any) {

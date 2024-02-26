@@ -1,20 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Checkbox from "rc-checkbox";
-import { doc, updateDoc, getDoc } from "firebase/firestore";
-import db from "../utils/data";
-
-const ID = JSON.parse(localStorage.getItem("docID") || "");
+import { useReadLocalStorage } from "usehooks-ts";
+// import { doc, updateDoc, getDoc } from "firebase/firestore";
+// import db from "../utils/data";
 
 import "./card.css";
 function Card({ data }: any & { title: string; task: [] }) {
   const [taskWindow, setTaskWindow] = useState(false);
   const [updateData, setUpdateData] = useState({} as any);
-  const [subtask, setSubtask] = useState(data.subtask);
   const status = ["todo", "doing", "done"];
-  // const [check, setCheck] = useState(false);
+  const ID = useReadLocalStorage("docID");
+  console.log(ID);
+
   const taskWindowHandler = function () {
     setTaskWindow(!taskWindow);
   };
+
+  function updateNewData(e: any) {
+    setUpdateData({
+      ...updateData,
+      status: e.target.value,
+      subtask: data.subtask,
+    });
+  }
 
   // useEffect(() => {
   //   async function fetchData() {
@@ -36,14 +44,6 @@ function Card({ data }: any & { title: string; task: [] }) {
   //   }
   // }, []);
 
-  function updateNewData(e: any) {
-    setUpdateData({
-      ...updateData,
-      status: e.target.value,
-      subtask: data.subtask,
-    });
-  }
-
   return (
     <>
       <div onClick={taskWindowHandler} className="card">
@@ -54,11 +54,14 @@ function Card({ data }: any & { title: string; task: [] }) {
         <>
           <div onClick={taskWindowHandler} className="popup-background"></div>
           <div className="popup">
-            <h3>{data.title.toUpperCase()}</h3>
-            <p>{data.description}</p>
+            <h3>Task Name:{data.title.toUpperCase()}</h3>
+            <p>
+              Description: <br />
+              {data.description}
+            </p>
             <h3>subtasks</h3>
             <ul className="subtask-container">
-              {subtask.map((task: any, index: number) => (
+              {data.subtask.map((task: any, index: number) => (
                 <li className="subtask" key={index}>
                   <Checkbox data-store={task.subtask} />
                   {task.status ? (

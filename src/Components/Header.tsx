@@ -4,6 +4,9 @@ import { useLocalStorage } from "usehooks-ts";
 import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
 import db from "../utils/data.ts";
 import { useThemeToggle, useTheme } from "./Theme";
+import Toggle from "react-toggle";
+import "react-toggle/style.css";
+import { useState, useEffect } from "react";
 import {
   Sun,
   Moon,
@@ -13,11 +16,9 @@ import {
   ChevronLeft,
   ArchiveRestore,
 } from "lucide-react";
-import Toggle from "react-toggle";
-import "react-toggle/style.css";
-import { useState, useEffect } from "react";
 
 function Header() {
+  const [Id, setId] = useState("");
   const [fold, setFold] = useState(false);
   const [docID, setDocID] = useLocalStorage("docID", "0"); // [1
   const [submit, setSubmit] = useState(false);
@@ -37,7 +38,6 @@ function Header() {
 
   async function deleteDocument(id: string) {
     await deleteDoc(doc(db, "Task-Manager", id));
-    console.log("Document deleted with ID:", id);
     getTasks();
   }
 
