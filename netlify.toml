@@ -1,3 +1,0 @@
-[dev]
-  functions = "netlify-functions"
-  functionsPort = 7000
