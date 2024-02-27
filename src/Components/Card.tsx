@@ -10,7 +10,6 @@ function Card({ data }: any & { title: string; task: [] }) {
   const [updateData, setUpdateData] = useState({} as any);
   const status = ["todo", "doing", "done"];
   const ID = useReadLocalStorage("docID");
-  console.log(ID);
 
   const taskWindowHandler = function () {
     setTaskWindow(!taskWindow);
@@ -54,26 +53,30 @@ function Card({ data }: any & { title: string; task: [] }) {
         <>
           <div onClick={taskWindowHandler} className="popup-background"></div>
           <div className="popup">
-            <h3>Task Name:{data.title.toUpperCase()}</h3>
-            <p>
-              Description: <br />
-              {data.description}
-            </p>
-            <h3>subtasks</h3>
-            <ul className="subtask-container">
-              {data.subtask.map((task: any, index: number) => (
-                <li className="subtask" key={index}>
-                  <Checkbox data-store={task.subtask} />
-                  {task.status ? (
-                    <del>
+            <h3>{data.title.toUpperCase()}</h3>
+
+            <p>Description:{data.description}</p>
+            {data.subtask.length > 0 && (
+              <h3 className="popup-subtask-title">subtasks</h3>
+            )}
+
+            {data.subtask.length > 0 && (
+              <ul className="subtask-container">
+                {data.subtask.map((task: any, index: number) => (
+                  <li className="single-subtask" key={index}>
+                    <Checkbox data-store={task.subtask} />
+                    {task.status ? (
+                      <del>
+                        <h4>{task.subtask}</h4>
+                      </del>
+                    ) : (
                       <h4>{task.subtask}</h4>
-                    </del>
-                  ) : (
-                    <h4>{task.subtask}</h4>
-                  )}
-                </li>
-              ))}
-            </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
+
             <select name="list" onChange={updateNewData}>
               {status.map((task: any, index: number) => (
                 <option key={index} value={task}>

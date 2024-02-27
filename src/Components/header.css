@@ -2,9 +2,10 @@
   position: relative;
 }
 .main-task-container {
+  padding: 1rem;
   transition: all 0.5s ease-in-out;
   background-color: var(--primary);
-  position: absolute;
+  position: fixed;
   z-index: 2;
   inset: 0 0 0 0;
   display: flex;
@@ -18,12 +19,12 @@
   cursor: pointer;
   scale: 1.5;
   position: absolute;
-  right: 5px;
+  right: -3px;
   top: 10px;
 }
 
 .main-task-container-fold {
-  transform: translate(-92%, 0);
+  transform: translate(-95%, 0);
   /*  */
 }
 

@@ -34,7 +34,7 @@ function Header() {
   }
   useEffect(() => {
     getTasks();
-  }, []);
+  }, [submit]);
 
   async function deleteDocument(id: string) {
     await deleteDoc(doc(db, "Task-Manager", id));
