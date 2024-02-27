@@ -42,7 +42,7 @@ function Header() {
 
   useEffect(() => {
     getTasks();
-  }, [submit]);
+  }, []);
 
   async function addDocument(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

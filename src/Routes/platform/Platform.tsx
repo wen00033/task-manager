@@ -25,7 +25,9 @@ function Platform() {
       return setTasks([]);
     }
   }
-
+  useEffect(() => {
+    fetchData();
+  }, []);
   useEffect(() => {
     fetchData();
   }, [ID]);
