@@ -34,15 +34,15 @@ function Header() {
     const data = await res.json();
     setTasks(data);
   }
+  useEffect(() => {
+    getTasks();
+  }, []);
+  console.log(tasks);
 
   async function deleteDocument(id: string) {
     await deleteDoc(doc(db, "Task-Manager", id));
     getTasks();
   }
-
-  useEffect(() => {
-    getTasks();
-  }, []);
 
   async function addDocument(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
