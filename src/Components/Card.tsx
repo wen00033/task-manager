@@ -10,6 +10,7 @@ function Card({ data }: any & { title: string; task: [] }) {
   const [updateData, setUpdateData] = useState({} as any);
   const status = ["todo", "doing", "done"];
   const ID = useReadLocalStorage("docID");
+  console.log(ID);
 
   const taskWindowHandler = function () {
     setTaskWindow(!taskWindow);
