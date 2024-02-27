@@ -10,13 +10,10 @@ function Platform() {
 
   async function fetchData() {
     try {
-      const res = await fetch(
-        "http://localhost:8888/.netlify/functions/getTask",
-        {
-          method: "POST",
-          body: JSON.stringify({ docID: ID }),
-        }
-      );
+      const res = await fetch(".netlify/functions/getTask", {
+        method: "POST",
+        body: JSON.stringify({ docID: ID }),
+      });
       if (!res.ok) throw new Error("Network response was not ok");
       const data = await res.json();
       // setTasks(Object.values(data));

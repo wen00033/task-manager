@@ -28,9 +28,7 @@ function Header() {
   const matches = useMediaQuery("(min-width: 800px)");
   //  async function get all tasks
   async function getTasks() {
-    const res = await fetch(
-      "http://localhost:8888/.netlify/functions/getTasksManager"
-    );
+    const res = await fetch(".netlify/functions/getTasksManager");
     const data = await res.json();
     setTasks(data);
   }
