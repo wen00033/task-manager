@@ -3,7 +3,6 @@ import { useReadLocalStorage } from "usehooks-ts";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import db from "../utils/data";
 import "./card.css";
-
 function Card({ taskList }: any & { title: string; task: [] }) {
   const [taskWindow, setTaskWindow] = useState(false);
   const [updateData, setUpdateData] = useState({} as any);
@@ -41,28 +40,20 @@ function Card({ taskList }: any & { title: string; task: [] }) {
     async function fetchData() {
       const docRef = doc(db, "Task-Manager", ID);
       const docSnap = await getDoc(docRef);
-      let data: any = docSnap.data();
-      if (data.taskList.length > 0) {
-        setUpdateData(
-          data.taskList.filter((el: {}) => el.time !== newTaskList.time)
-        );
-      } else {
-        setUpdateData(data.taskList);
-      }
+      let data = docSnap.data();
+      setUpdateData(
+        data.taskList.filter((task: any) => task.time !== newTaskList.time)
+      );
     }
     fetchData();
   }, []);
 
-  console.log(updateData, newTaskList);
-  function getSubmit(e: any) {
-    e.preventDefault();
-  }
+  // console.log(updateData);
 
+  // useEffect(() => {
   async function GetupdateData() {
     const docRef = doc(db, "Task-Manager", ID);
-    await updateDoc(docRef, {
-      taskList: [...updateData, newTaskList],
-    });
+    await updateDoc(docRef, { taskList: [...updateData, newTaskList] });
     taskWindowHandler();
     location.reload();
   }
@@ -85,11 +76,10 @@ function Card({ taskList }: any & { title: string; task: [] }) {
             )}
 
             {taskList.subtask.length > 0 && (
-              <form onSubmit={getSubmit} className="subtask-container">
+              <form className="subtask-container">
                 {newTaskList.subtask.map((task: any, index: number) => (
                   <label className="single-subtask" key={index}>
                     <input
-                      // checked={task.status}
                       onChange={getCheckboxValues}
                       type="checkbox"
                       name={task.subtask}
