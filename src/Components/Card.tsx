@@ -46,6 +46,8 @@ function Card({ taskList }: any & { title: string; task: [] }) {
         setUpdateData(
           data.taskList.filter((el: {}) => el.time !== newTaskList.time)
         );
+      } else {
+        setUpdateData(data.taskList);
       }
     }
     fetchData();
