@@ -4,7 +4,7 @@ function TaskCat({ data }: any & { string: [] }) {
     <div className="tasks-container">
       <h3 className="tasks-title">{data[0].toUpperCase()}</h3>
       {data[1].map((task: any, index: number) => (
-        <Card data={task} taskList={data} key={index} />
+        <Card taskList={task} key={index} />
       ))}
     </div>
   );
