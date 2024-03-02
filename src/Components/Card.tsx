@@ -3,6 +3,7 @@ import { useReadLocalStorage } from "usehooks-ts";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import db from "../utils/data";
 import "./card.css";
+
 function Card({ taskList }: any & { title: string; task: [] }) {
   const [taskWindow, setTaskWindow] = useState(false);
   const [updateData, setUpdateData] = useState({} as any);
@@ -40,10 +41,12 @@ function Card({ taskList }: any & { title: string; task: [] }) {
     async function fetchData() {
       const docRef = doc(db, "Task-Manager", ID);
       const docSnap = await getDoc(docRef);
-      let data = docSnap.data();
-      setUpdateData(
-        data.taskList.filter((el: {}) => el.time !== newTaskList.time)
-      );
+      let data: any = docSnap.data();
+      if (data.taskList.length > 0) {
+        setUpdateData(
+          data.taskList.filter((el: {}) => el.time !== newTaskList.time)
+        );
+      }
     }
     fetchData();
   }, []);
@@ -53,7 +56,6 @@ function Card({ taskList }: any & { title: string; task: [] }) {
     e.preventDefault();
   }
 
-  // useEffect(() => {
   async function GetupdateData() {
     const docRef = doc(db, "Task-Manager", ID);
     await updateDoc(docRef, {
@@ -62,17 +64,6 @@ function Card({ taskList }: any & { title: string; task: [] }) {
     taskWindowHandler();
     location.reload();
   }
-
-  // }, []);
-
-  // function StatusHandler(e: any) {
-  //   // task.status = "select your status";
-  //   setTask({
-  //     ...task,
-  //     [e.target.name]: e.target.value,
-  //     subtask: subtaskArray,
-  //   });
-  // }
 
   return (
     <>
