@@ -9,6 +9,7 @@ function Card({ taskList }: any & { title: string; task: [] }) {
   const [subTask, setSubTask] = useState([] as any);
   const [newTaskList, setNewTaskList] = useState(taskList);
   const status = ["todo", "doing", "done"];
+
   const ID = useReadLocalStorage("docID");
 
   const taskWindowHandler = function () {
@@ -38,9 +39,10 @@ function Card({ taskList }: any & { title: string; task: [] }) {
 
   useEffect(() => {
     async function fetchData() {
-      const docRef = doc(db, "Task-Manager", ID);
+      const docRef = doc(db, "Task-Manager", ID as string);
       const docSnap = await getDoc(docRef);
       let data = docSnap.data();
+      if (data === undefined) return;
       setUpdateData(
         data.taskList.filter((task: any) => task.time !== newTaskList.time)
       );
@@ -52,7 +54,7 @@ function Card({ taskList }: any & { title: string; task: [] }) {
 
   // useEffect(() => {
   async function GetupdateData() {
-    const docRef = doc(db, "Task-Manager", ID);
+    const docRef = doc(db, "Task-Manager", ID as string);
     await updateDoc(docRef, { taskList: [...updateData, newTaskList] });
     taskWindowHandler();
     location.reload();

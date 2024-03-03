@@ -25,6 +25,7 @@ function Platform() {
   useEffect(() => {
     fetchData();
   }, []);
+
   useEffect(() => {
     fetchData();
   }, [ID]);
