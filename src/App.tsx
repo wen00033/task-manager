@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       {/* set dark as default, remember to change it back   */}
-      <div className={`wrapper ${lightMode ? "dark" : "dark"}`}>
+      <div className={`wrapper ${lightMode ? "" : "dark"}`}>
         <Header />
         <main>
           <Outlet />

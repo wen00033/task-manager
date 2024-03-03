@@ -41,7 +41,7 @@
   box-shadow: 1px 1px 5px 0px black;
   border-radius: 0.5rem;
   cursor: pointer;
-  color: var(--secondary);
+  color: var(--btn-text);
 }
 
 .platform-button:hover {

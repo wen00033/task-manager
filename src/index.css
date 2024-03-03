@@ -7,6 +7,8 @@
   --header: var(--primary);
   --mode: var(--quaternary);
   --task-header: var(--secondary);
+  --header: var(--secondary);
+  --btn-text: black;
 }
 
 * {
@@ -39,10 +41,11 @@ input {
 
 .dark {
   --task-header: var(--tertiary);
-  --header: var(--secondary);
-  background-color: var(--primary);
-  color: var(--secondary);
+  --header: var(--primary);
+  --btn-text: white;
   --mode: var(--tertiary);
+  color: var(--secondary);
+  background-color: var(--primary);
 }
 
 .wrapper {

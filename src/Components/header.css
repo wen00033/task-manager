@@ -4,7 +4,7 @@
 .main-task-container {
   padding: 1rem;
   transition: all 0.5s ease-in-out;
-  background-color: var(--primary);
+  background-color: var(--header);
   position: fixed;
   z-index: 2;
   inset: 0 0 0 0;
