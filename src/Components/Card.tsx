@@ -26,16 +26,18 @@ function Card({ taskList, refetch }: any & { title: string; task: [] }) {
     setSubTask(filterValues);
   }
   function updateNewData() {
-    if (subTask.length === 0) return;
     const status = document.querySelector(
       ".select-status"
     ) as HTMLSelectElement;
+    if (subTask.length === 0) return;
+
     setNewTaskList({
       ...newTaskList,
       status: status.value,
       subtask: subTask,
     });
   }
+  console.log(newTaskList);
 
   useEffect(() => {
     async function fetchData() {
