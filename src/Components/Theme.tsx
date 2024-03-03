@@ -34,6 +34,7 @@ type content = {
 function Theme({ children }: content) {
   const [tasks, setTasks] = useState<[] | string>([]);
   const [theme, setTheme] = useState(true);
+
   const toggle = function () {
     setTheme(!theme);
   };

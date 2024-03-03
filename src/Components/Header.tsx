@@ -107,11 +107,11 @@ function Header() {
           </ul>
         </>
       </div>
-      <div className="toggle">
+      {/* <div className="toggle">
         <Moon />
         <Toggle defaultChecked={lightMode} icons={true} onChange={toggle} />
         <Sun />
-      </div>
+      </div> */}
     </header>
   );
 }
