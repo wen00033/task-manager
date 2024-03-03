@@ -17,10 +17,10 @@
 
 .main-task-toggle {
   cursor: pointer;
-  scale: 1.5;
-  position: absolute;
-  right: -3px;
-  top: 10px;
+  scale: 2;
+  position: fixed;
+  right: 3px;
+  top: 90%;
 }
 
 .main-task-container-fold {
