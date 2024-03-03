@@ -37,7 +37,7 @@ function Platform() {
         {/* fetch function render empty object, use ternary to skip the empty object */}
         {tasks.length > 0 ? (
           tasks.map((task: [], index: number) => (
-            <TaskCat data={task} key={index} />
+            <TaskCat refetch={fetchData} data={task} key={index} />
           ))
         ) : (
           <h2>Please add new task</h2>

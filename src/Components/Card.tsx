@@ -3,7 +3,7 @@ import { useReadLocalStorage } from "usehooks-ts";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import db from "../utils/data";
 import "./card.css";
-function Card({ taskList }: any & { title: string; task: [] }) {
+function Card({ taskList, refetch }: any & { title: string; task: [] }) {
   const [taskWindow, setTaskWindow] = useState(false);
   const [updateData, setUpdateData] = useState({} as any);
   const [subTask, setSubTask] = useState([] as any);
@@ -57,7 +57,7 @@ function Card({ taskList }: any & { title: string; task: [] }) {
     const docRef = doc(db, "Task-Manager", ID as string);
     await updateDoc(docRef, { taskList: [...updateData, newTaskList] });
     taskWindowHandler();
-    location.reload();
+    refetch();
   }
 
   return (
