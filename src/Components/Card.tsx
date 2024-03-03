@@ -30,14 +30,12 @@ function Card({ taskList, refetch }: any & { title: string; task: [] }) {
       ".select-status"
     ) as HTMLSelectElement;
     if (subTask.length === 0) return;
-
     setNewTaskList({
       ...newTaskList,
       status: status.value,
       subtask: subTask,
     });
   }
-  console.log(newTaskList);
 
   useEffect(() => {
     async function fetchData() {
@@ -62,6 +60,7 @@ function Card({ taskList, refetch }: any & { title: string; task: [] }) {
     refetch();
   }
 
+  // console.log([...updateData, newTaskList]);
   return (
     <>
       <div onClick={taskWindowHandler} className="card">
@@ -73,7 +72,6 @@ function Card({ taskList, refetch }: any & { title: string; task: [] }) {
           <div onClick={taskWindowHandler} className="popup-background"></div>
           <div className="popup">
             <h3>{taskList.title.toUpperCase()}</h3>
-
             <p>Description:{taskList.description}</p>
             {taskList.subtask.length > 0 && (
               <h3 className="popup-subtask-title">subtasks</h3>
