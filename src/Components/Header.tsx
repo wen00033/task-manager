@@ -3,13 +3,13 @@ import { useMediaQuery } from "usehooks-ts";
 import { useLocalStorage } from "usehooks-ts";
 import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
 import db from "../utils/data.ts";
-import { useThemeToggle, useTheme } from "./Theme";
-import Toggle from "react-toggle";
+// import { useThemeToggle, useTheme } from "./Theme";
+// import Toggle from "react-toggle";
 import "react-toggle/style.css";
 import { useState, useEffect } from "react";
 import {
-  Sun,
-  Moon,
+  // Sun,
+  // Moon,
   Star,
   XOctagon,
   ChevronRight,
@@ -23,8 +23,8 @@ function Header() {
   const [submit, setSubmit] = useState(false);
   const [tasks, setTasks] = useState<[] | string>([]);
   const [title, setTitle] = useState("");
-  const lightMode = useTheme();
-  const toggle = useThemeToggle();
+  // const lightMode = useTheme();
+  // const toggle = useThemeToggle();
   const matches = useMediaQuery("(min-width: 800px)");
   //  async function get all tasks
   async function getTasks() {
