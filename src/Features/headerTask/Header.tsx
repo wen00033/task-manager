@@ -1,15 +1,13 @@
 import "./header.css";
 import { useMediaQuery } from "usehooks-ts";
 import { useLocalStorage } from "usehooks-ts";
-import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
-import db from "../utils/data.ts";
-// import { useThemeToggle, useTheme } from "./Theme";
-// import Toggle from "react-toggle";
+import { deleteDoc, doc } from "firebase/firestore";
+import db from "../../utils/data.ts";
+import { useDispatch, useSelector } from "react-redux";
 import "react-toggle/style.css";
 import { useState, useEffect } from "react";
+import { addDocument } from "./headerSlice.js";
 import {
-  // Sun,
-  // Moon,
   Star,
   XOctagon,
   ChevronRight,
@@ -18,38 +16,36 @@ import {
 } from "lucide-react";
 
 function Header() {
+  const dispatch = useDispatch();
   const [fold, setFold] = useState(false);
-  const [docID, setDocID] = useLocalStorage("docID", "0"); // [1
-  const [submit, setSubmit] = useState(false);
-  const [tasks, setTasks] = useState<[] | string>([]);
-  const [title, setTitle] = useState("");
-  // const lightMode = useTheme();
-  // const toggle = useThemeToggle();
   const matches = useMediaQuery("(min-width: 800px)");
-  //  async function get all tasks
-  async function getTasks() {
+  // --------
+  const [docID, setDocID] = useLocalStorage("docID", "0"); // [1
+  const [title, setTitle] = useState("");
+  const data = useSelector((state) => state.header.task);
+  const [tasks, setTasks] = useState<[] | string>(data);
+  const [submit, setSubmit] = useState(null);
+  async function readDocument() {
     const res = await fetch(".netlify/functions/getTasksManager");
     const data = await res.json();
     setTasks(data);
   }
+
   useEffect(() => {
-    getTasks();
+    readDocument();
   }, [submit]);
 
   async function deleteDocument(id: string) {
     await deleteDoc(doc(db, "Task-Manager", id));
-    getTasks();
+    setSubmit((el) => (el = !el));
   }
 
-  async function addDocument(e: React.FormEvent<HTMLFormElement>) {
+  function updatedDocument(e: Event) {
     e.preventDefault();
     if (title === "") return;
-    const taskManager = await addDoc(collection(db, "Task-Manager"), {
-      title: title,
-    });
-    console.log("Document added with ID:", taskManager.id);
-    setTitle("");
+    dispatch(addDocument(title));
     setSubmit(!submit);
+    setTitle("");
   }
 
   function toggleFold() {
@@ -93,7 +89,7 @@ function Header() {
               ))}
             <li className="main-task">
               <Star className="task-icon" />
-              <form onSubmit={addDocument}>
+              <form onSubmit={updatedDocument}>
                 <input
                   value={title}
                   onChange={(e) => {
