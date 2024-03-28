@@ -1,6 +1,6 @@
 import "./card.css";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { UpdateSingleTask } from "./TaskManagerSlice";
 function Card({ task }) {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ function Card({ task }) {
             <p>Description:{task.description}</p>
             {task.subtask.length > 0 && (
               <form className="subtask-container">
-                {task.subtask.map((task: any, index: number) => (
+                {task.subtask.map((task, index) => (
                   <>
                     <div data-id={task.subtask.id} className="single-subtask">
                       <input type="checkbox" name={task.subtask} />
@@ -56,7 +56,7 @@ function Card({ task }) {
               name="status"
               onChange={updateTaskHandler}
             >
-              {categories.map((status: any, index: number) => (
+              {categories.map((status, index) => (
                 <option key={index} value={status}>
                   {status}
                 </option>

@@ -11,8 +11,8 @@ function AddTask() {
   const status = ["select your status", "todo", "doing", "done"];
 
   // ====set new task into redux management=============
-  const [task, setTask] = useState({} as any);
-  const [subtaskArray, setSubtaskArray] = useState([] as any);
+  const [task, setTask] = useState({});
+  const [subtaskArray, setSubtaskArray] = useState([]);
   const [subtask, setSubtask] = useState("");
   // =====Target to the correct id =============
   // If user didn't select any task, return null
@@ -23,7 +23,7 @@ function AddTask() {
     setPopup(!popup);
   };
 
-  function addSubtaskHandler(e: any) {
+  function addSubtaskHandler(e) {
     e.preventDefault();
     if (subtask === "") return;
     setSubtaskArray([
@@ -33,7 +33,7 @@ function AddTask() {
     setSubtask("");
   }
 
-  function addNewTaskHandler(e: any) {
+  function addNewTaskHandler(e) {
     e.preventDefault();
     dispatch(AddNewSingleTask({ task, id }));
     setSubtaskArray("");
@@ -41,7 +41,7 @@ function AddTask() {
   }
 
   // bugs for subtask can not updated immediately
-  function addTaskHandler(e: any) {
+  function addTaskHandler(e) {
     setTask({
       ...task,
       id: crypto.randomUUID(),
@@ -53,11 +53,11 @@ function AddTask() {
 
   // ADD subtask with id to fix delete subtask bug
 
-  function deleteSubtaskHandler(e: any) {
+  function deleteSubtaskHandler(e) {
     e.preventDefault();
     console.log(e.target.dataset.id);
     setSubtaskArray(
-      subtaskArray.filter((task: any) => task.id !== e.target.dataset.id)
+      subtaskArray.filter((task) => task.id !== e.target.dataset.id)
     );
   }
 
@@ -92,7 +92,7 @@ function AddTask() {
               <span>Subtask</span>
 
               {subtaskArray &&
-                subtaskArray.map((subtask: any, index: number) => (
+                subtaskArray.map((subtask, index) => (
                   <div className="subtask" key={index}>
                     <input disabled value={subtask.subtask} />
                     <X
@@ -114,7 +114,7 @@ function AddTask() {
               <button onClick={addSubtaskHandler}>+Add New Subtasks</button>
               <span>Status</span>
               <select onChange={addTaskHandler} name="status">
-                {status.map((task: any, index: number) => (
+                {status.map((task, index) => (
                   <option key={index} value={task}>
                     {task}
                   </option>

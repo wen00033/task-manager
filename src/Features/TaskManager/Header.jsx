@@ -5,7 +5,8 @@ import { useState } from "react";
 import { Star, ArchiveRestore } from "lucide-react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 
-function Header({ animation }: { animation: string }) {
+function Header({ animation }) {
+  // eslint-disable-next-line
   const [parent, enableAnimation] = useAutoAnimate(true);
   const dispatch = useDispatch();
   // Add new task categories

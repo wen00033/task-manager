@@ -3,6 +3,7 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 // import { useState } from "react";
 function TaskCat({ data, categories }) {
+  // eslint-disable-next-line
   const [parent, enableAnimation] = useAutoAnimate(true);
   // console.log(data);
   return (
