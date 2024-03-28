@@ -37,14 +37,16 @@ const TaskManagerSlice = createSlice({
         return object;
       });
     },
-    UpperSingleTask: (state, action) => {
+    UpdateSingleTask: (state, action) => {
       state.taskManager = state.taskManager.map((object) => {
         if (object.id === state.currentTask.id) {
-          if (object.task.id == action.payload.id) {
-            return { ...object, task: [...object.task, action.payload] };
-          } else {
-            return { ...object, task: [...object.task, action.payload] };
-          }
+          return {
+            ...object,
+            task: [...object.task].map(
+              (object) =>
+                [action.payload].find((task) => task.id === object.id) || object
+            ),
+          };
         }
         return object;
       });
@@ -57,6 +59,6 @@ export const {
   DeleteTask,
   CurrentTask,
   AddNewSingleTask,
-  UpperSingleTask,
+  UpdateSingleTask,
 } = TaskManagerSlice.actions;
 export default TaskManagerSlice.reducer;

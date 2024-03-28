@@ -1,7 +1,7 @@
 import "./card.css";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { UpperSingleTask } from "./TaskManagerSlice";
+import { UpdateSingleTask } from "./TaskManagerSlice";
 function Card({ task }) {
   const dispatch = useDispatch();
   const categories = ["todo", "doing", "done"];
@@ -17,7 +17,7 @@ function Card({ task }) {
   const updateTaskToReduxHandler = function (e) {
     e.preventDefault();
     if (Object.values(updateTask).length > 0) {
-      dispatch(UpperSingleTask(updateTask));
+      dispatch(UpdateSingleTask(updateTask));
     }
   };
 
