@@ -17,7 +17,7 @@ function AddTask() {
   // =====Target to the correct id =============
   // If user didn't select any task, return null
   const id = useSelector((state) => state.TaskManager.currentTask.id);
-  if (!id) return null;
+  // if (!id) return null;
 
   const taskWindowHandler = function () {
     setPopup(!popup);
@@ -64,10 +64,14 @@ function AddTask() {
   return (
     <>
       <header className="platform-header">
-        <h2 className="platform-title">Add your Task🫡!</h2>
-        <button onClick={taskWindowHandler} className="platform-button">
-          Add task
-        </button>
+        <h2 className="platform-title">
+          {id ? "Add your Task🫡!" : "Please select your task or Add task🙂"}
+        </h2>
+        {id && (
+          <button onClick={taskWindowHandler} className="platform-button">
+            Add task
+          </button>
+        )}
       </header>
       {popup && (
         <>
