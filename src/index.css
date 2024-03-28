@@ -26,8 +26,6 @@
 ul,
 ol {
   list-style-type: none;
-  display: grid;
-  gap: 1rem;
 }
 
 h1 {
@@ -70,36 +68,6 @@ input {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.task-container {
-  margin-top: 2rem;
-}
-
-.task-icon {
-  transition: all 0.3s ease-in-out;
-  cursor: pointer;
-}
-.task-icon:hover {
-  transform: scale(1.2);
-  color: #d4ff00;
-}
-
-.task-delete {
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  opacity: 0.2;
-}
-.task-delete:hover {
-  scale: 2;
-  opacity: 1;
-}
-
-.tasks-container {
-  display: flex;
-  flex-direction: column;
-}
-.active {
-  color: orange;
 }
 
 @media only screen and (min-width: 800px) {

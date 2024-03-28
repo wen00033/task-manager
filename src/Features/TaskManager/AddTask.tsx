@@ -1,64 +1,70 @@
 import "./AddTask.css";
 import { X } from "lucide-react";
-import db from "../utils/data";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { useState } from "react";
-import { useReadLocalStorage } from "usehooks-ts";
+import { AddNewSingleTask } from "./TaskManagerSlice";
+import { useSelector, useDispatch } from "react-redux";
 
-function AddTask({ refetch }: any & { refetch: () => void }) {
+function AddTask() {
+  const dispatch = useDispatch();
+  // UI element does't need to be in redux
   const [popup, setPopup] = useState(false);
   const status = ["select your status", "todo", "doing", "done"];
+
+  // ====set new task into redux management=============
   const [task, setTask] = useState({} as any);
   const [subtaskArray, setSubtaskArray] = useState([] as any);
   const [subtask, setSubtask] = useState("");
-  const ID = useReadLocalStorage("docID");
+  // =====Target to the correct id =============
+  // If user didn't select any task, return null
+  const id = useSelector((state) => state.TaskManager.currentTask.id);
+  if (!id) return null;
+
   const taskWindowHandler = function () {
     setPopup(!popup);
   };
-  // bugs for subtask can not updated immediately
-
-  function addTaskHandler(e: any) {
-    task.status = "select your status";
-    setTask({
-      ...task,
-      [e.target.name]: e.target.value,
-      subtask: subtaskArray,
-      time: new Date().toLocaleString(),
-    });
-  }
-  async function addTaskToDb(e: any) {
-    if (task.status === "select your status") {
-      alert("select your status");
-    }
-    e.preventDefault();
-    const docRef = doc(db, "Task-Manager", `${ID}`);
-    await updateDoc(docRef, {
-      taskList: arrayUnion(task),
-    });
-    setSubtaskArray([]);
-    setPopup(!popup);
-    refetch();
-  }
 
   function addSubtaskHandler(e: any) {
     e.preventDefault();
     if (subtask === "") return;
-    setSubtaskArray([...subtaskArray, { subtask: subtask, status: false }]);
+    setSubtaskArray([
+      ...subtaskArray,
+      { subtask: subtask, status: false, id: crypto.randomUUID() },
+    ]);
     setSubtask("");
   }
+
+  function addNewTaskHandler(e: any) {
+    e.preventDefault();
+    dispatch(AddNewSingleTask({ task, id }));
+    setSubtaskArray("");
+    setPopup(false);
+  }
+
+  // bugs for subtask can not updated immediately
+  function addTaskHandler(e: any) {
+    setTask({
+      ...task,
+      id: crypto.randomUUID(),
+      [e.target.name]: e.target.value,
+      time: new Date().toLocaleString(),
+      subtask: subtaskArray,
+    });
+  }
+
+  // ADD subtask with id to fix delete subtask bug
+
   function deleteSubtaskHandler(e: any) {
     e.preventDefault();
+    console.log(e.target.dataset.id);
     setSubtaskArray(
-      subtaskArray.filter(
-        (task: any) => task.subtask !== e.target.dataset.store
-      )
+      subtaskArray.filter((task: any) => task.id !== e.target.dataset.id)
     );
   }
 
   return (
     <>
       <header className="platform-header">
-        <h2 className="platform-title">tasks launch</h2>
+        <h2 className="platform-title">Add your Task🫡!</h2>
         <button onClick={taskWindowHandler} className="platform-button">
           Add task
         </button>
@@ -84,13 +90,14 @@ function AddTask({ refetch }: any & { refetch: () => void }) {
                 placeholder="description"
               />
               <span>Subtask</span>
+
               {subtaskArray &&
                 subtaskArray.map((subtask: any, index: number) => (
                   <div className="subtask" key={index}>
                     <input disabled value={subtask.subtask} />
                     <X
                       className="subtask-delete-button"
-                      data-store={subtask.subtask}
+                      data-id={subtask.id}
                       onClick={deleteSubtaskHandler}
                     >
                       Delete
@@ -113,8 +120,7 @@ function AddTask({ refetch }: any & { refetch: () => void }) {
                   </option>
                 ))}
               </select>
-
-              <button onClick={addTaskToDb}>Add New task</button>
+              <button onClick={addNewTaskHandler}>Add New Task</button>
             </form>
           </div>
         </>
